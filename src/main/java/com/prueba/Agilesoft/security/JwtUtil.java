@@ -53,8 +53,6 @@ public class JwtUtil {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        //claims.put("nombre", nombre);
-
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -85,7 +83,6 @@ public class JwtUtil {
 
     public Boolean validateToken(String token, String user) {
         final String username = extractUsername(token);
-        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx "+ username);
         return (username.equals(user) && !isTokenExpired(token));
     }
 }

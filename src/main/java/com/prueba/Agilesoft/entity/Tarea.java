@@ -46,6 +46,14 @@ public class Tarea {
     public Tarea() {
     }
 
+    public Tarea(Long idTarea, String nombre, String estado, String descripcion) {
+        this.idTarea = idTarea;
+        this.nombre = nombre;
+        this.estado = estado;
+        this.descripcion = descripcion;
+    }
+    
+    
     public Long getIdTarea() {
         return idTarea;
     }

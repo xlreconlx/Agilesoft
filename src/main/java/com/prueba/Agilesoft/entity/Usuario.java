@@ -36,6 +36,12 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(String nombre, String username, String password) {
+        this.nombre = nombre;
+        this.username = username;
+        this.password = password;
+    }
+    
     public Long getIdUsuario() {
         return idUsuario;
     }

@@ -4,8 +4,12 @@
  */
 package com.prueba.Agilesoft.controller;
 
+import com.prueba.Agilesoft.entity.Usuario;
+import com.prueba.Agilesoft.repository.UsuarioRepository;
 import com.prueba.Agilesoft.security.CustomUserDetailService;
 import com.prueba.Agilesoft.security.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,16 +36,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody AuthenticationRequest authRequest) throws Exception {
-        // Autentica al usuario
+    public ResponseEntity<String> login(@RequestBody AuthenticationRequest authRequest) throws Exception {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-
-        // Cargar detalles del usuario
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
-
-        // Generar JWT
         final String jwt = jwtUtil.generateToken(userDetails);
-
-        return jwt;
+        return ResponseEntity.ok(jwt);
     }
 }

@@ -28,7 +28,5 @@ public class UsuarioController {
     public ResponseEntity<Usuario> register(@RequestBody Usuario usuario) {
         return ResponseEntity.ok(usuarioService.registerUsuario(usuario));
     }
-    
-    
-    
+
 }
