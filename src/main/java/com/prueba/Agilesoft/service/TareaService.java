@@ -20,11 +20,11 @@ public class TareaService {
     @Autowired    
     private TareaRepository tareaRepository;
 
-    public List<Tarea> getTareaByIdUsuario(int idUsuario) {
+    public List<Tarea> getTareaByIdUsuario(Long idUsuario) {
         return tareaRepository.findByIdUsuario(idUsuario);
     }
     
-    public Tarea getTareaById(int idTarea) {
+    public Tarea getTareaById(Long idTarea) {
         return tareaRepository.findByIdTarea(idTarea);
     }
 

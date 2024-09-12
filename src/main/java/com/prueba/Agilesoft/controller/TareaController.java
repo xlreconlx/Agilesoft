@@ -9,6 +9,7 @@ import com.prueba.Agilesoft.service.TareaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,22 +32,22 @@ public class TareaController {
     private TareaService tareaService;
 
     @GetMapping
-    public ResponseEntity<List<Tarea>> getTareasByUsuario(@RequestParam int idUsuario) {
+    public ResponseEntity<List<Tarea>> getTareasByUsuario(@RequestParam Long idUsuario, Authentication authentication) {
         return ResponseEntity.ok(tareaService.getTareaByIdUsuario(idUsuario));
     }
 
     @PostMapping
-    public ResponseEntity<Tarea> addTarea(@RequestBody Tarea task) {
-        return ResponseEntity.ok(tareaService.addTarea(task));
+    public ResponseEntity<Tarea> addTarea(@RequestBody Tarea tarea, Authentication authentication) {
+        return ResponseEntity.ok(tareaService.addTarea(tarea));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{idTarea}")
     public ResponseEntity<Tarea> updateTarea(@PathVariable Long idTarea, @RequestBody Tarea tarea) {
         tarea.setIdTarea(idTarea);
         return ResponseEntity.ok(tareaService.updateTarea(tarea));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idTarea}")
     public ResponseEntity<Void> deleteTarea(@PathVariable Long idTarea) {
         tareaService.deleteTarea(idTarea);
         return ResponseEntity.noContent().build();

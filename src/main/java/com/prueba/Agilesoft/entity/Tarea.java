@@ -5,20 +5,24 @@
 package com.prueba.Agilesoft.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 /**
  *
  * @author ander
  */
+@Entity
+@Table(name = "tareas")
 public class Tarea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idTarea")
+    @Column(name = "idtarea")
     private Long idTarea;
 
     @Column(name = "nombre")
@@ -30,22 +34,16 @@ public class Tarea {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "fechaCreacion", insertable = false, updatable = false)
+    @Column(name = "fechacreacion", insertable = false, updatable = false)
     private LocalDate fechaCreacion;
 
-    @Column(name = "fechaModificacion", insertable = false, updatable = false)
+    @Column(name = "fechamodificacion", insertable = false, updatable = false)
     private LocalDate fechaModificacion;
 
-    public Tarea() {
-    }
+    @Column(name = "idusuario")
+    private Long idUsuario;
 
-    public Tarea(Long idTarea, String nombre, String estado, String descripcion, LocalDate fechaCreacion, LocalDate fechaModificacion) {
-        this.idTarea = idTarea;
-        this.nombre = nombre;
-        this.estado = estado;
-        this.descripcion = descripcion;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaModificacion = fechaModificacion;
+    public Tarea() {
     }
 
     public Long getIdTarea() {
@@ -94,6 +92,14 @@ public class Tarea {
 
     public void setFechaModificacion(LocalDate fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
+    }
+
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
 }
