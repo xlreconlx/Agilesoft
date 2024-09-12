@@ -22,12 +22,12 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Usuario registerUser(Usuario usuario) {
+    public Usuario registerUsuario(Usuario usuario) {
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario getUserByUsername(String username) {
+    public Usuario getUsuarioByUsername(String username) {
         return usuarioRepository.findByUsername(username);
     }
 }

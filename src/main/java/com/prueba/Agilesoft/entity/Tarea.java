@@ -19,7 +19,7 @@ public class Tarea {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idTarea")
-    private Integer idTarea;
+    private Long idTarea;
 
     @Column(name = "nombre")
     private String nombre;
@@ -39,7 +39,7 @@ public class Tarea {
     public Tarea() {
     }
 
-    public Tarea(Integer idTarea, String nombre, String estado, String descripcion, LocalDate fechaCreacion, LocalDate fechaModificacion) {
+    public Tarea(Long idTarea, String nombre, String estado, String descripcion, LocalDate fechaCreacion, LocalDate fechaModificacion) {
         this.idTarea = idTarea;
         this.nombre = nombre;
         this.estado = estado;
@@ -48,11 +48,11 @@ public class Tarea {
         this.fechaModificacion = fechaModificacion;
     }
 
-    public Integer getIdTarea() {
+    public Long getIdTarea() {
         return idTarea;
     }
 
-    public void setIdTarea(Integer idTarea) {
+    public void setIdTarea(Long idTarea) {
         this.idTarea = idTarea;
     }
 

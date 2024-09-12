@@ -36,7 +36,7 @@ public class TareaService {
         return tareaRepository.save(tarea);
     }
 
-    public void deleteTarea(Tarea tarea) {
-        tareaRepository.delete(tarea);
+    public void deleteTarea(Long idTarea) {
+        tareaRepository.deleteById(idTarea);
     }
 }
