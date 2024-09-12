@@ -32,25 +32,42 @@ public class TareaController {
     private TareaService tareaService;
 
     @GetMapping
-    public ResponseEntity<List<Tarea>> getTareasByUsuario(@RequestParam Long idUsuario, Authentication authentication) {
-        return ResponseEntity.ok(tareaService.getTareaByIdUsuario(idUsuario));
+    public ResponseEntity<List<Tarea>> getTareasByUsuario(Authentication authentication) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(tareaService.getTareasByUsername(username));
     }
 
     @PostMapping
     public ResponseEntity<Tarea> addTarea(@RequestBody Tarea tarea, Authentication authentication) {
-        return ResponseEntity.ok(tareaService.addTarea(tarea));
+        String username = authentication.getName();
+        return ResponseEntity.ok(tareaService.addTarea(tarea, username));
     }
 
     @PutMapping("/{idTarea}")
-    public ResponseEntity<Tarea> updateTarea(@PathVariable Long idTarea, @RequestBody Tarea tarea) {
-        tarea.setIdTarea(idTarea);
-        return ResponseEntity.ok(tareaService.updateTarea(tarea));
+    public ResponseEntity<Tarea> updateTarea(@PathVariable Long idTarea, @RequestBody Tarea tarea, Authentication authentication) {
+        String username = authentication.getName();
+        Tarea oldTarea = tareaService.getTareaByIdTareaAndUsername(idTarea, username);
+        if (oldTarea != null) {
+            oldTarea.setDescripcion(tarea.getDescripcion());
+            oldTarea.setEstado(tarea.getEstado());
+            oldTarea.setNombre(tarea.getNombre());
+            return ResponseEntity.ok(tareaService.updateTarea(oldTarea));
+        } else {
+            throw new RuntimeException("Tarea no encontrada o no pertenece al usuario autenticado");
+        }
     }
 
     @DeleteMapping("/{idTarea}")
-    public ResponseEntity<Void> deleteTarea(@PathVariable Long idTarea) {
-        tareaService.deleteTarea(idTarea);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteTarea(@PathVariable Long idTarea, Authentication authentication) {
+        String username = authentication.getName();
+        Tarea tarea = tareaService.getTareaByIdTareaAndUsername(idTarea, username);
+        if (tarea != null) {
+            tareaService.deleteTarea(tarea.getIdTarea());
+            return ResponseEntity.noContent().build();
+        } else {
+            throw new RuntimeException("Tarea no encontrada o no pertenece al usuario autenticado");
+        }
+
     }
 
 }

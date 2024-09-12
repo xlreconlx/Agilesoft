@@ -15,4 +15,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface TareaRepository extends JpaRepository<Tarea, Long>{
     public List<Tarea> findByIdUsuario(Long idUsuario);
     public Tarea findByIdTarea(Long idTarea);
+    public Tarea findByIdTareaAndIdUsuario(Long idTarea, Long idUsuario);
 }
